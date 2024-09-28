@@ -22,14 +22,11 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - name: cd into src/ directory
-        run: cd src
-
       - name: Restore Dependencies
-        run: dotnet restore
+        run: dotnet restore src/src.sln
 
       - name: Build the API
-        run: dotnet build --no-restore
+        run: dotnet build src/src.sln --no-restore
 
       - name: Run Unit and Integration Tests
-        run: dotnet test
+        run: dotnet test src/src.sln
