@@ -29,89 +29,89 @@ public class RestaurantsControllerTests : IClassFixture<WebApplicationFactory<Pr
         });
     }
 
-    // [Fact]
-    // public async Task GetAllAsync_ForValidRequest_Returns200Ok(){
-    //     // Arrange
-    //     var restaurants = new List<Restaurant>{
-    //         new Restaurant{
-    //             Id = 1,
-    //             Name = "name",
-    //             Description = "desc",
-    //             Category = RestaurantCategory.Italian
-    //         },
+    [Fact]
+    public async Task GetAllAsync_ForValidRequest_Returns200Ok(){
+        // Arrange
+        var restaurants = new List<Restaurant>{
+            new Restaurant{
+                Id = 1,
+                Name = "name",
+                Description = "desc",
+                Category = RestaurantCategory.Italian
+            },
 
-    //         new Restaurant{
-    //             Id = 2,
-    //             Name = "name",
-    //             Description = "desc",
-    //             Category = RestaurantCategory.Italian
-    //         },
+            new Restaurant{
+                Id = 2,
+                Name = "name",
+                Description = "desc",
+                Category = RestaurantCategory.Italian
+            },
 
-    //         new Restaurant{
-    //             Id = 3,
-    //             Name = "name",
-    //             Description = "desc",
-    //             Category = RestaurantCategory.Turkish
-    //         },
+            new Restaurant{
+                Id = 3,
+                Name = "name",
+                Description = "desc",
+                Category = RestaurantCategory.Turkish
+            },
 
-    //         new Restaurant{
-    //             Id = 4,
-    //             Name = "name",
-    //             Description = "desc",
-    //             Category = RestaurantCategory.Turkish
-    //         },
+            new Restaurant{
+                Id = 4,
+                Name = "name",
+                Description = "desc",
+                Category = RestaurantCategory.Turkish
+            },
 
-    //         new Restaurant{
-    //             Id = 5,
-    //             Name = "name",
-    //             Description = "desc",
-    //             Category = RestaurantCategory.Chinese
-    //         },
-    //     };
+            new Restaurant{
+                Id = 5,
+                Name = "name",
+                Description = "desc",
+                Category = RestaurantCategory.Chinese
+            },
+        };
 
-    //     _repositoryMock.Setup(r => r.GetAllAsync(It.IsAny<int>(), It.IsAny<int>(), null, null, null, null)).ReturnsAsync((restaurants, restaurants.Count));
+        _repositoryMock.Setup(r => r.GetAllAsync(It.IsAny<int>(), It.IsAny<int>(), null, null, null, null)).ReturnsAsync((restaurants, restaurants.Count));
         
-    //     var client = _factory.CreateClient();
+        var client = _factory.CreateClient();
 
-    //     // Act
-    //     var response = await client.GetAsync("/api/restaurants?pageNo=1&pageSize=5");
+        // Act
+        var response = await client.GetAsync("/api/restaurants?pageNo=1&pageSize=5");
 
-    //     // Assert
-    //     response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
-    // }
+        // Assert
+        response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+    }
 
-    // [Fact]
-    // public async Task GetAllAsync_ForInvalidRequest_Returns500Internal(){
-    //     // Arrange
-    //     var client = _factory.CreateClient();
+    [Fact]
+    public async Task GetAllAsync_ForInvalidRequest_Returns500Internal(){
+        // Arrange
+        var client = _factory.CreateClient();
 
-    //     // Act
-    //     var response = await client.GetAsync("/api/restaurants");
+        // Act
+        var response = await client.GetAsync("/api/restaurants");
 
-    //     // Assert
-    //     response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
-    // }
+        // Assert
+        response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
+    }
 
-    // [Fact]
-    // public async Task GetByIdAsync_ForValidRequest_Returns200Ok(){
-    //     //
-    //     var client = _factory.CreateClient();
-    //     var id = 1;
+    [Fact]
+    public async Task GetByIdAsync_ForValidRequest_Returns200Ok(){
+        //
+        var client = _factory.CreateClient();
+        var id = 1;
 
-    //     var restaurant = new Restaurant{
-    //         Id = 1,
-    //         Name = "name",
-    //         Description = "desc" 
-    //     };
+        var restaurant = new Restaurant{
+            Id = 1,
+            Name = "name",
+            Description = "desc" 
+        };
 
-    //     _repositoryMock.Setup(r => r.GetRestaurantByIdAsync(id)).ReturnsAsync(restaurant);
+        _repositoryMock.Setup(r => r.GetRestaurantByIdAsync(id)).ReturnsAsync(restaurant);
 
-    //     //
-    //     var response = await client.GetAsync($"/api/restaurants/{id}");
+        //
+        var response = await client.GetAsync($"/api/restaurants/{id}");
 
-    //     //
-    //     response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
-    // }
+        //
+        response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+    }
 
     // [Fact]
     // public async Task GetByIdAsync_ResourceNotInDb_Returns404NotFound(){
