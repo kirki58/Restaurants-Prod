@@ -1,23 +1,28 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualBasic;
+using Restaurants.Domain.Abstractions;
 using Restaurants.Domain.Entities;
 using Restaurants.Domain.Repositories;
 using Restaurants.Infrastructure.Autharization;
 using Restaurants.Infrastructure.Autharization.Constants;
 using Restaurants.Infrastructure.Autharization.Requirements;
+using Restaurants.Infrastructure.ExternalServices.BLOB;
 using Restaurants.Infrastructure.Persistence;
 using Restaurants.Infrastructure.Repositories;
+using Restaurants.Infrastructure.Settings;
 
 namespace Restaurants.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static void AddInfraStructure(this IServiceCollection services){
+    public static void AddInfraStructure(this IServiceCollection services, IConfiguration configuration){
+        var connectionString = configuration.GetConnectionString("RestaurantsDb");
         services.AddDbContext<RestaurantsDbContext>( options => 
             options
-                .UseSqlServer(Environment.GetEnvironmentVariable("RestaurantsDb"))
+                .UseSqlServer(connectionString)
                 .EnableSensitiveDataLogging()
         );
 
@@ -52,5 +57,9 @@ public static class ServiceCollectionExtensions
         
         services.AddScoped<IRestaurantsRepository, RestaurantsRepository>();
         services.AddScoped<IDishesRepository, DishesRepository>();
+
+        services.Configure<BlobStorageSettings>(configuration.GetSection("BlobStorage"));
+        services.AddScoped<IBlobStorageService, BlobStorageService>();
+        services.AddMemoryCache();
     }
 }

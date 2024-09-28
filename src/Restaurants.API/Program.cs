@@ -1,5 +1,8 @@
 using Restaurants.API.Extensions;
+using Serilog;
 
+try
+{
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddBuilderExtensions();
@@ -9,6 +12,14 @@ var app = builder.Build();
 await app.AddMiddleWare();
 
 app.Run();
+
+}
+catch(Exception ex){
+    Log.Fatal(ex, "Program startup failed!");
+}
+finally{
+    Log.CloseAndFlush();
+}
 
 public partial class Program{}
 

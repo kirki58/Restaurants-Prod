@@ -12,8 +12,8 @@ using Restaurants.Infrastructure.Persistence;
 namespace Restaurants.Infrastructure.Migrations
 {
     [DbContext(typeof(RestaurantsDbContext))]
-    [Migration("20240919123137_NavigationPropertyFixed")]
-    partial class NavigationPropertyFixed
+    [Migration("20240927125711_AddedLogoUrlField")]
+    partial class AddedLogoUrlField
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -288,6 +288,10 @@ namespace Restaurants.Infrastructure.Migrations
 
                     b.Property<bool>("HasDelivery")
                         .HasColumnType("bit");
+
+                    b.Property<string>("LogoUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()

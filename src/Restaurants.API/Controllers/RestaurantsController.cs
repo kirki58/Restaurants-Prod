@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,7 +41,7 @@ namespace Restaurants.API.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Authorize] // Authorizes Admin or restaurant owner internally 
+        [Authorize] // Authorizes Admin or restaurant owner internally
         public async Task<IActionResult> DeleteRestaurantAsync([FromRoute] int id){
             await mediator.Send(new DeleteRestaurantCommand(id));
 
@@ -50,12 +51,23 @@ namespace Restaurants.API.Controllers
         [HttpPatch("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Authorize] // Authorizes Admin or restaurant owner internally 
+        [Authorize] // Authorizes Admin or restaurant owner internally
         public async Task<IActionResult> UpdateRestaurantAsync([FromRoute] int id, [FromBody] UpdateRestaurantDTO dto){
             UpdateRestaurantCommand command = new UpdateRestaurantCommand(id, dto);
             await mediator.Send(command);
 
             return NoContent();
+        }
+
+        [HttpPost("{id}/logos")]
+        [Authorize] // Authorizes Admin or restaurant owner internally
+        public async Task<IActionResult> UploadRestaurantLogo([FromRoute] int id, IFormFile formFile){
+            using var fileStream = formFile.OpenReadStream();
+
+            var command = new UploadRestaurantLogoCommand(id, fileStream);
+            var url = await mediator.Send(command);
+
+            return Created(url, null);
         }
     }
 }

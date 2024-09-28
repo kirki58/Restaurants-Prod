@@ -26,6 +26,8 @@ public class Restaurant
     public User RestaurantAdmin {get; set;} = default!;
     // Actual Foreign Key to Restaurant Admin
     public string AdminId {get; set;} = default!;
+    // Url to restaurant logo in Azure BLOB Storage
+    public string? LogoUrl { get; set; }
 }
 
 public enum RestaurantCategory{

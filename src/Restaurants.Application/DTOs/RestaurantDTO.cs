@@ -13,4 +13,5 @@ public class RestaurantDTO
     public List<DishDTO> Dishes { get; set; } = [];
     public int Tables { get; set; }
     public UserDTO RestaurantAdmin { get; set; } = default!;
+    public string? RestaurantLogoImageSasUrl { get; set; }
 }

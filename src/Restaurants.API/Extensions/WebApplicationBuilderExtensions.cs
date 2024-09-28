@@ -42,7 +42,7 @@ public static class WebApplicationBuilderExtensions
 
         builder.Services.AddApplication();      // Aplication layer ServiceCollection Extension
 
-        builder.Services.AddInfraStructure();   // Infrastructure layer ServiceCollection Extension
+        builder.Services.AddInfraStructure(builder.Configuration);   // Infrastructure layer ServiceCollection Extension
 
         builder.Services.AddEndpointsApiExplorer(); // Explore and integrate API Endpoints metadata with swagger. (Including minimal API endpoints)
 

@@ -35,7 +35,9 @@ internal class RestaurantsDbContext(DbContextOptions<RestaurantsDbContext> optio
     internal async static Task SeedData(RestaurantsDbContext context){
         // Ensure that the DB is up to date before seeding data
         // Pending migrations are directly applied (if any)
-        await context.Database.MigrateAsync();
+        if(context.Database.GetPendingMigrations().Any()){
+            await context.Database.MigrateAsync();
+        }
         
         if(!context.Roles.Any()){
             List<IdentityRole> roles = [
