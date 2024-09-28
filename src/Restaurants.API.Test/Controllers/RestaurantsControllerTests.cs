@@ -92,39 +92,39 @@ public class RestaurantsControllerTests : IClassFixture<WebApplicationFactory<Pr
         response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
     }
 
-    // [Fact]
-    // public async Task GetByIdAsync_ForValidRequest_Returns200Ok(){
-    //     //
-    //     var client = _factory.CreateClient();
-    //     var id = 1;
+    [Fact]
+    public async Task GetByIdAsync_ForValidRequest_Returns200Ok(){
+        //
+        var client = _factory.CreateClient();
+        var id = 1;
 
-    //     var restaurant = new Restaurant{
-    //         Id = 1,
-    //         Name = "name",
-    //         Description = "desc" 
-    //     };
+        var restaurant = new Restaurant{
+            Id = 1,
+            Name = "name",
+            Description = "desc" 
+        };
 
-    //     _repositoryMock.Setup(r => r.GetRestaurantByIdAsync(id)).ReturnsAsync(restaurant);
+        _repositoryMock.Setup(r => r.GetRestaurantByIdAsync(id)).ReturnsAsync(restaurant);
 
-    //     //
-    //     var response = await client.GetAsync($"/api/restaurants/{id}");
+        //
+        var response = await client.GetAsync($"/api/restaurants/{id}");
 
-    //     //
-    //     response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
-    // }
+        //
+        response.StatusCode.Should().Be(System.Net.HttpStatusCode.OK);
+    }
 
-    // [Fact]
-    // public async Task GetByIdAsync_ResourceNotInDb_Returns404NotFound(){
-    //     //
-    //     var client = _factory.CreateClient();
-    //     var id = 1;
+    [Fact]
+    public async Task GetByIdAsync_ResourceNotInDb_Returns404NotFound(){
+        //
+        var client = _factory.CreateClient();
+        var id = 1;
 
-    //     _repositoryMock.Setup(r => r.GetRestaurantByIdAsync(id)).ReturnsAsync((Restaurant?) null);
+        _repositoryMock.Setup(r => r.GetRestaurantByIdAsync(id)).ReturnsAsync((Restaurant?) null);
 
-    //     //
-    //     var response = await client.GetAsync($"/api/restaurants/{id}");
+        //
+        var response = await client.GetAsync($"/api/restaurants/{id}");
 
-    //     //
-    //     response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
-    // }
+        //
+        response.StatusCode.Should().Be(System.Net.HttpStatusCode.NotFound);
+    }
 }
