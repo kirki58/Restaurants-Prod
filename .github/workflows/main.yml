@@ -28,5 +28,11 @@ jobs:
       - name: Build the API
         run: dotnet build src/src.sln --no-restore
 
-      - name: Run Unit and Integration Tests
-        run: dotnet test src/src.sln
+      - name: Run Restaurants.Infrastructure.Test unit tests
+        run: dotnet test src/Restaurants.Infrastructure.Test
+
+      - name: Run Restaurants.Application.Test unit tests
+        run: dotnet test src/Restaurants.Application.Test
+
+      - name: Run Restaurants.API.Test unit and integration tests
+        run: dotnet test src/Restaurants.API.Test
