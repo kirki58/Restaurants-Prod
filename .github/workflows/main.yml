@@ -1,4 +1,4 @@
-name: restaurants-prod
+name: restaurants-prod-ci
 
 on:
   pull_request:
