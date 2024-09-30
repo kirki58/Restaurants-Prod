@@ -29,7 +29,7 @@ jobs:
         run: dotnet publish src/Restaurants.API --output ${{env.DOTNET_ROOT}}/publish --no-build
 
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v3.2.1
+        uses: actions/upload-artifact@v4.4.0
         with:
           name: publish-artifact
           path: ${{env.DOTNET_ROOT}}/publish
@@ -42,6 +42,7 @@ jobs:
         uses: actions/download-artifact@v4.1.8
         with:
           name: publish-artifact
+          
 
       - name: Azure WebApp
         uses: Azure/webapps-deploy@v3.0.1
