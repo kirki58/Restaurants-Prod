@@ -63,12 +63,12 @@ jobs:
     steps:
       - name: Download a Build Artifact
         uses: actions/download-artifact@v4.1.8
-        id: prod-deployment
         with:
           name: publish-artifact
 
       - name: Azure WebApp
         uses: Azure/webapps-deploy@v3.0.1
+        id: prod-deployment
         # This step automatically finds the package to deploy (which is publish-artifact in this case) so no need to specify a "package" property.
         with:
           app-name: app-restaurants-italynorth-prod
