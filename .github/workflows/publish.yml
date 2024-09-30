@@ -43,14 +43,9 @@ jobs:
         with:
           name: publish-artifact
 
-      - name: Azure Login
-        uses: Azure/login@v2.2.0
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
       - name: Azure WebApp
         uses: Azure/webapps-deploy@v3.0.1
         # This step automatically finds the package to deploy (which is publish-artifact in this case) so no need to specify a "package" property.
         with:
           app-name: app-restaurants-italynorth-001
-          resource-group-name: rg-restaurants-italynorth-001
+          publish-profile: ${{ DEV_PUBLISH_PROFILE }}
