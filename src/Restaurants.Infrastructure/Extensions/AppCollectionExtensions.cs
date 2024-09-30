@@ -14,7 +14,7 @@ public static class AppCollectionExtensions
         app.MapGroup("api/auth").MapIdentityApi<User>();
 
         // SEED DATA
-        if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Testing"){
+        if(Environment.GetEnvironmentVariable("SHOULD_SEED") != "DONT_SEED"){
             await using (var scope = app.Services.CreateAsyncScope()){
                 var serviceProvider = scope.ServiceProvider;
                 var context = serviceProvider.GetRequiredService<RestaurantsDbContext>();
