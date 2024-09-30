@@ -14,12 +14,11 @@ public static class AppCollectionExtensions
         app.MapGroup("api/auth").MapIdentityApi<User>();
 
         // SEED DATA
-        if(Environment.GetEnvironmentVariable("SHOULD_SEED") != "DONT_SEED"){
-            await using (var scope = app.Services.CreateAsyncScope()){
-                var serviceProvider = scope.ServiceProvider;
-                var context = serviceProvider.GetRequiredService<RestaurantsDbContext>();
-                await RestaurantsDbContext.SeedData(context);
-            }
+        await using (var scope = app.Services.CreateAsyncScope()){
+            var serviceProvider = scope.ServiceProvider;
+            var context = serviceProvider.GetRequiredService<RestaurantsDbContext>();
+            var seeder = serviceProvider.GetRequiredService<IDatabaseSeeder>();
+            await seeder.Seed(context);
         }
     }
 }

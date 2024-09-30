@@ -32,29 +32,29 @@ internal class RestaurantsDbContext(DbContextOptions<RestaurantsDbContext> optio
             .HasForeignKey(r => r.AdminId);
     }
 
-    internal async static Task SeedData(RestaurantsDbContext context){
-        // Ensure that the DB is up to date before seeding data
-        // Pending migrations are directly applied (if any)
-        if(context.Database.GetPendingMigrations().Any()){
-            await context.Database.MigrateAsync();
-        }
+    // internal async static Task SeedData(RestaurantsDbContext context){
+    //     // Ensure that the DB is up to date before seeding data
+    //     // Pending migrations are directly applied (if any)
+    //     if(context.Database.GetPendingMigrations().Any()){
+    //         await context.Database.MigrateAsync();
+    //     }
         
-        if(!context.Roles.Any()){
-            List<IdentityRole> roles = [
-                new IdentityRole{
-                    Id = Guid.NewGuid().ToString(),
-                    Name = AppRoles.User,
-                    NormalizedName = AppRoles.User.ToUpper(),
-                },
+    //     if(!context.Roles.Any()){
+    //         List<IdentityRole> roles = [
+    //             new IdentityRole{
+    //                 Id = Guid.NewGuid().ToString(),
+    //                 Name = AppRoles.User,
+    //                 NormalizedName = AppRoles.User.ToUpper(),
+    //             },
                 
-                new IdentityRole{
-                    Id = Guid.NewGuid().ToString(),
-                    Name = AppRoles.Admin,
-                    NormalizedName = AppRoles.Admin.ToUpper(),
-                }
-            ];
-            await context.Roles.AddRangeAsync(roles);
-            await context.SaveChangesAsync();
-        }
-    }
+    //             new IdentityRole{
+    //                 Id = Guid.NewGuid().ToString(),
+    //                 Name = AppRoles.Admin,
+    //                 NormalizedName = AppRoles.Admin.ToUpper(),
+    //             }
+    //         ];
+    //         await context.Roles.AddRangeAsync(roles);
+    //         await context.SaveChangesAsync();
+    //     }
+    // }
 }

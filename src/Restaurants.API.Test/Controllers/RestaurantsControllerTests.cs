@@ -1,5 +1,3 @@
-using System.Text;
-using System.Text.Json;
 using FluentAssertions;
 using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -7,10 +5,9 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Moq;
-using Restaurants.Application.Commands;
 using Restaurants.Domain.Entitites;
 using Restaurants.Domain.Repositories;
-using Xunit.Abstractions;
+using Restaurants.Infrastructure.Persistence;
 
 namespace Restaurants.API.Test.Controllers;
 
@@ -19,12 +16,14 @@ public class RestaurantsControllerTests : IClassFixture<WebApplicationFactory<Pr
 {
     private readonly WebApplicationFactory<Program> _factory;
     private readonly Mock<IRestaurantsRepository> _repositoryMock = new();
+    private readonly Mock<IDatabaseSeeder> _seederMock = new();
     public RestaurantsControllerTests(WebApplicationFactory<Program> factory)
     {
         _factory = factory.WithWebHostBuilder(builder => {
             builder.ConfigureTestServices(services => {
                 services.AddSingleton<IPolicyEvaluator, FakePolicyEvaluator>();
                 services.Replace(ServiceDescriptor.Scoped(typeof(IRestaurantsRepository), _ => _repositoryMock.Object));
+                services.AddSingleton<IDatabaseSeeder>(_ => _seederMock.Object);
             });
         });
     }
