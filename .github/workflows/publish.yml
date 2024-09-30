@@ -48,4 +48,4 @@ jobs:
         # This step automatically finds the package to deploy (which is publish-artifact in this case) so no need to specify a "package" property.
         with:
           app-name: app-restaurants-italynorth-001
-          publish-profile: ${{ DEV_PUBLISH_PROFILE }}
+          publish-profile: ${{ secrets.DEV_PUBLISH_PROFILE }}
