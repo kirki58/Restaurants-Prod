@@ -62,6 +62,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IBlobStorageService, BlobStorageService>();
         services.AddMemoryCache();
 
-        services.AddSingleton<IDatabaseSeeder, DatabaseSeeder>();
+        services.AddScoped<IDatabaseSeeder, DatabaseSeeder>();
     }
 }

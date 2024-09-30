@@ -23,7 +23,7 @@ public class RestaurantsControllerTests : IClassFixture<WebApplicationFactory<Pr
             builder.ConfigureTestServices(services => {
                 services.AddSingleton<IPolicyEvaluator, FakePolicyEvaluator>();
                 services.Replace(ServiceDescriptor.Scoped(typeof(IRestaurantsRepository), _ => _repositoryMock.Object));
-                services.AddSingleton<IDatabaseSeeder>(_ => _seederMock.Object);
+                services.Replace(ServiceDescriptor.Scoped(typeof(IDatabaseSeeder), _ => _seederMock.Object));
             });
         });
     }
